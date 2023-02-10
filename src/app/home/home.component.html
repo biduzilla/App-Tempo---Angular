@@ -1,0 +1,145 @@
+<div class="search">
+  <form (ngSubmit)="onSubmit()" class="search__form">
+    <input
+      class="search__form__input"
+      type="text"
+      placeholder="Ex: Brasília"
+      [(ngModel)]="cityName"
+    />
+    <button
+      type="submit"
+      (keyup.enter)="onSubmit()"
+      class="search__form__botao"
+    >
+      Pesquisar
+    </button>
+  </form>
+</div>
+<div class="container" *ngIf="weatherData">
+  <div class="container__upper-data">
+    <img
+      class="container__upper-data__img"
+      src="../assets/5.png"
+      *ngIf="
+        weatherData.current.temp_c <= 15 && weatherData.current.is_day == 0
+      "
+    />
+
+    <img
+      class="container__upper-data__img"
+      src="../assets/4.png"
+      *ngIf="
+        weatherData.current.temp_c <= 15 && weatherData.current.is_day == 1
+      "
+    />
+
+    <img
+      class="container__upper-data__img"
+      src="../assets/2.png"
+      *ngIf="weatherData.current.temp_c > 15 && weatherData.current.is_day == 1"
+    />
+
+    <img
+      class="container__upper-data__img"
+      src="../assets/3.png"
+      *ngIf="weatherData.current.temp_c > 15 && weatherData.current.is_day == 0"
+    />
+
+    <div class="container__upper-data__weather-data">
+      <div class="container__upper-data__weather-data__location">
+        {{ weatherData.location.localtime | date: "shortTime" }}
+      </div>
+      <div class="container__upper-data__weather-data__location">
+        {{ weatherData.location.name }} - {{ weatherData.location.country }}
+      </div>
+      <div class="container__upper-data__weather-data__temperature">
+        {{ weatherData.current.temp_c | number: "1.0-0" }}°C
+      </div>
+    </div>
+  </div>
+  <div class="container__lower-data">
+    <div class="container__lower-data__moreInfo-label">Mais Informações</div>
+    <div class="container__lower-data__moreInfo-container">
+      <div class="container__lower-data__moreInfo-container__info-block">
+        <div
+          class="container__lower-data__moreInfo-container__info-block__label"
+        >
+          <!-- <img
+            class="container__lower-data__moreInfo-container__info-block__label__img"
+            src="../assets/temperature.png"
+          />
+          <span
+            class="container__lower-data__moreInfo-container__info-block__label__span"
+            >Clima</span
+          > -->
+          <img src="{{ weatherData.current.condition.icon }}" />
+        </div>
+        <div
+          class="container__lower-data__moreInfo-container__info-block__value"
+        >
+          {{ weatherData.current.condition.text }}
+        </div>
+      </div>
+
+      <div class="container__lower-data__moreInfo-container__info-block">
+        <div
+          class="container__lower-data__moreInfo-container__info-block__label"
+        >
+          <img
+            class="container__lower-data__moreInfo-container__info-block__label__img"
+            src="../assets/humidity.png"
+          />
+          <span
+            class="container__lower-data__moreInfo-container__info-block__label__span"
+            >Umidade</span
+          >
+        </div>
+        <div
+          class="container__lower-data__moreInfo-container__info-block__value"
+        >
+          {{ weatherData.current.humidity }}%
+        </div>
+      </div>
+
+      <div class="container__lower-data__moreInfo-container__info-block">
+        <div
+          class="container__lower-data__moreInfo-container__info-block__label"
+        >
+          <img
+            class="container__lower-data__moreInfo-container__info-block__label__img"
+            src="../assets/wind.png"
+          />
+          <span
+            class="container__lower-data__moreInfo-container__info-block__label__span"
+            >Vento</span
+          >
+        </div>
+        <div
+          class="container__lower-data__moreInfo-container__info-block__value"
+        >
+          {{ weatherData.current.wind_kph }} km/h
+        </div>
+      </div>
+
+      <div class="container__lower-data__moreInfo-container__info-block">
+        <div
+          class="container__lower-data__moreInfo-container__info-block__label"
+        >
+          <img
+            class="container__lower-data__moreInfo-container__info-block__label__img"
+            src="../assets/water.png"
+          />
+          <span
+            class="container__lower-data__moreInfo-container__info-block__label__span"
+            >Precipitação</span
+          >
+        </div>
+        <div
+          class="container__lower-data__moreInfo-container__info-block__value"
+        >
+          {{ weatherData.current.precip_mm }} mm
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
